@@ -819,6 +819,7 @@ body.nav-active {
 
 .hero-btn .span {
   color: var(--black);
+  font-size: var(--fontSize-label-1);
   font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--letterSpacing-1);
@@ -861,6 +862,10 @@ body.nav-active {
 
 .hero .slider-item.active .hero-text {
   animation-delay: 1.5s;
+}
+
+.hero .slider-item.active .btn {
+  animation-delay: 2s;
 }
 
 /*-----------------------------------*\
