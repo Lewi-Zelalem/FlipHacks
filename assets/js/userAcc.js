@@ -55,22 +55,65 @@ function updateUserInfo(userData) {
     welcomeMsgUserName.innerHTML = `${userData.firstName} ${userData.lastName}`; // Assuming username is stored in the user data
 }
 
-// Function to fetch user data
-function fetchMembers() {
-    const databaseRef = ref(database);
-    console.log("Fetching members from:", `users`); // Log the path being fetched
-    get(child(databaseRef, `users`))
+
+// Function to count members
+function countMembers() {
+    const membersRef = ref(database, 'users'); // Reference to the users node
+    get(membersRef) // Fetch the users data
         .then((snapshot) => {
             if (snapshot.exists()) {
-                const usersData = snapshot.val();
-                console.log("Users data:", usersData); // Log the retrieved users data
-                
-                // Get the number of members and their names
-                const memberNames = Object.keys(usersData).map(username => {
-                    return usersData[username].firstName + ' ' + usersData[username].lastName;
+                let memberCount = 0; // Counter for members
+                const members = snapshot.val(); // Get the users data
+
+                for (let username in members) { // Loop through each member
+                    memberCount++; // Increase the count for each member
+                }
+
+                console.log(memberCount);
+                document.querySelector(".hack-members h1 .memebers-count")
+                    .innerText = `${memberCount}`;
+            } else {
+                console.error("No members data available");
+            }
+        })
+        .catch((error) => {
+        });
+}
+
+// Function to fetch user data
+// Function to fetch and display all members
+function fetchMembers() {
+    const membersRef = ref(database, 'users'); // Reference to the users node
+    get(membersRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const members = snapshot.val(); // Get the users data
+                const memberCount = Object.keys(members).length; // Count total members
+                const memberCountElement = document.querySelector('.hack-members h1'); // Select the member count element
+
+                // Update the member count display
+                if (memberCountElement) {
+                    memberCountElement.textContent = `${memberCount} Members`; // Update the count display
+                } else {
+                    console.error("Member count element not found");
+                }
+
+                // Display first five members
+                const memberContainer = document.querySelector('.hack-members'); // Container for members
+
+                // Clear existing member elements
+                memberContainer.querySelectorAll('.member').forEach(member => member.remove());
+
+                // Get the first five usernames
+                const memberNames = Object.keys(members).slice(0, 5); // Get the first five usernames
+
+                // Display the first five members
+                memberNames.forEach(username => {
+                    const memberElement = document.createElement('div');
+                    memberElement.classList.add('member');
+                    memberElement.innerHTML = `<i class="fa-solid fa-user-tie"></i><h3>${members[username].firstName} ${members[username].lastName}</h3>`; // Assuming you want to show first and last name
+                    memberContainer.appendChild(memberElement); // Append member element to the container
                 });
-                
-                updateMemberInfo(memberNames);
             } else {
                 console.error("No members data available");
             }
@@ -80,28 +123,12 @@ function fetchMembers() {
         });
 }
 
-// Function to update the DOM with member information
-function updateMemberInfo(memberNames) {
-    // Update the members count
-    const membersCountElement = document.querySelector('.hack-members h1');
-    membersCountElement.innerHTML = `${memberNames.length} Members`;
-
-    // Update the member names in the DOM
-    const membersContainer = document.querySelector('.hack-members');
-    membersContainer.innerHTML = ''; // Clear existing member names
-
-    memberNames.forEach(name => {
-        const memberDiv = document.createElement('div');
-        memberDiv.className = 'member';
-        memberDiv.innerHTML = `<i class="fa-solid fa-user-tie"></i><h3>${name}</h3>`;
-        membersContainer.appendChild(memberDiv);
-    });
-}
 
 // Fetch members data when the page loads
 window.onload = () => {
     fetchMembers();
     fetchUserData(username);
+    countMembers();
 };
 
 
@@ -118,3 +145,31 @@ document.querySelector('.user .fa-eye')
         document.querySelector('.databse-info .code')
             .innerHTML = `${userData.securityCode} <i class="fa-solid fa-eye-slash"></i>`;
     });
+
+
+
+    const userIcon = document.getElementById('userIcon');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+// Show dropdown on hover
+userIcon.addEventListener('mouseenter', () => {
+    dropdownMenu.style.display = 'block';
+});
+
+userIcon.addEventListener('mouseleave', () => {
+    dropdownMenu.style.display = 'none';
+});
+
+// Optional: Close the dropdown when clicking outside
+document.addEventListener('click', (event) => {
+    if (!userIcon.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+    }
+});
+
+// Optional: Toggle dropdown on click
+userIcon.addEventListener('click', () => {
+    const isExpanded = userIcon.getAttribute('aria-expanded') === 'true';
+    userIcon.setAttribute('aria-expanded', !isExpanded);
+    dropdownMenu.style.display = isExpanded ? 'none' : 'block';
+});
