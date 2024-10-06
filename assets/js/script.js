@@ -3,8 +3,8 @@
 /*
  * PRELOAD
  */
- const preloader = document.querySelector("[data-preloader]")
- window.addEventListener("load", function () {
+const preloader = document.querySelector("[data-preload]");
+window.addEventListener("load", function () {
   preloader.classList.add("loaded");
   document.body.classList.add("loaded");
 });
