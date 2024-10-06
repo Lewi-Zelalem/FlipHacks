@@ -5,6 +5,7 @@ import {
   set,
   get,
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
 // Firebase configuration (replace with your actual config)
 const firebaseConfig = {
@@ -17,6 +18,7 @@ const firebaseConfig = {
   appId: "1:9118741906:web:d8860d3094a46bafd37d4b",
   measurementId: "G-EYLLFHW5XS",
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -78,6 +80,7 @@ document
               lastName: lastname,
               password: password,
               securityCode: securityCode,
+              role: 'Member'
             };
 
             // Save user data to Firebase

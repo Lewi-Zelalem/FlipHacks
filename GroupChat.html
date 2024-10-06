@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Inbox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .inbox-container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+
+    }
+
+    .message {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .message:last-child {
+      border-bottom: none;
+    }
+
+    .message-sender {
+      font-weight: bold;
+    }
+
+    .message-content {
+      margin-top: 5px;
+    }
+
+    .send-message {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 80px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      padding-left: 30px;
+      padding-right: 30px;
+      font-size: 15px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ff4b4b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="inbox-container">
+    <h2>Inbox</h2>
+    <div id="messages-container">
+      <!-- Messages will be loaded here -->
+    </div>
+
+    <div class="send-message">
+      <input type="text" id="message-input" placeholder="Type your message here...">
+      <button id="send-message-btn">Send</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVIym8X-GDRx6_1256dtVZdo3hIm7TRgI",
+      authDomain: "flipper-hack.firebaseapp.com",
+      databaseURL: "https://flipper-hack-default-rtdb.firebaseio.com",
+      projectId: "flipper-hack",
+      storageBucket: "flipper-hack.appspot.com",
+      messagingSenderId: "9118741906",
+      appId: "1:9118741906:web:d8860d3094a46bafd37d4b",
+      measurementId: "G-EYLLFHW5XS",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Get username from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user'); // This will be the username from the URL
+
+    // Load messages
+    const messagesRef = ref(database, `groupMessage`);
+    onValue(messagesRef, (snapshot) => {
+      const messagesContainer = document.getElementById("messages-container");
+      messagesContainer.innerHTML = ''; // Clear previous messages
+      if (snapshot.exists()) {
+        const messages = snapshot.val();
+        for (const key in messages) {
+          const message = messages[key];
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "message";
+          messageDiv.innerHTML = `
+                        <div class="message-sender">${message.senderName}</div>
+                        <div class="message-content">${message.content}</div>
+                    `;
+          messagesContainer.appendChild(messageDiv);
+        }
+      } else {
+        messagesContainer.innerHTML = '<div>No messages found.</div>';
+      }
+    });
+
+    // Send message
+    document.getElementById("send-message-btn").addEventListener("click", () => {
+      const messageInput = document.getElementById("message-input");
+      const messageContent = messageInput.value.trim();
+      if (messageContent) {
+        // Reference to the general message node
+        const newMessageRef = ref(database, `groupMessage/${Date.now()}`);
+        set(newMessageRef, {
+          senderName: username, // Set the senderName as the username
+          content: messageContent,
+        }).then(() => {
+          messageInput.value = ''; // Clear input after sending
+        }).catch((error) => {
+          console.error("Error sending message: ", error);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

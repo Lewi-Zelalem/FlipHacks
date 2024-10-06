@@ -42,6 +42,20 @@ function fetchUserData(username) {
         .catch((error) => {
             console.error("Error fetching user data: ", error);
         });
+    
+      const userRef = ref(database, `users/${username}`);
+    
+    return get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            return snapshot.val(); // Returns the user data
+        } else {
+            console.error("No user data found.");
+            return null; // Ensure null is returned
+        }
+    }).catch((error) => {
+        console.error("Error fetching user data: ", error);
+        return null; // Ensure null is returned on error
+    });
 }
 
 // Function to update the DOM with user information
@@ -147,7 +161,9 @@ document.querySelector('.user .fa-eye')
     });
 
 
-
+/*
+*user account ddrop down
+*/
     const userIcon = document.getElementById('userIcon');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -172,4 +188,26 @@ userIcon.addEventListener('click', () => {
     const isExpanded = userIcon.getAttribute('aria-expanded') === 'true';
     userIcon.setAttribute('aria-expanded', !isExpanded);
     dropdownMenu.style.display = isExpanded ? 'none' : 'block';
+});
+
+const storedUsername = localStorage.getItem("username");
+
+document.getElementById("groupChat").addEventListener('click', () => {
+    fetchUserData(storedUsername).then(userData => {
+        if (userData) {
+            const securityCode = userData.securityCode; // Get security code from user data
+            // Construct the inbox link with the security code at the end
+            window.location.href = `GroupChat.html?user=${storedUsername}`;
+        }
+    });
+});
+
+document.getElementById("inboxLink").addEventListener('click', () => {
+    fetchUserData(storedUsername).then(userData => {
+        if (userData) {
+            const securityCode = userData.securityCode; // Get security code from user data
+            // Construct the inbox link with the security code at the end
+            window.location.href = `Inbox.html?user=${storedUsername}`;
+        }
+    });
 });

@@ -83,7 +83,6 @@ const slideNext = function () {
   }
   updateSliderPos();
 };
-heroSliderNextBtn.addEventListener("click", slideNext);
 const slideprev = function () {
   if (currentSliderPos <= 0) {
     currentSliderPos = heroSliderItems.length - 1;
@@ -92,7 +91,6 @@ const slideprev = function () {
   }
   updateSliderPos();
 };
-heroSliderPrevBtn.addEventListener("click", slideprev);
 /**
  * auto slide
  */
