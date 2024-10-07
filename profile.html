@@ -108,88 +108,99 @@
                 <button class="close-btn" aria-label="close menu" data-nav-toggler>
                     <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
                 </button>
-
+    
                 <a href="#" class="logo">
                     <img src="assets/images/logo-new.svg" alt="Fliphacks - Home" width="160" height="50" />
                 </a>
-
+    
                 <ul class="navbar-list">
                     <li class="navbar-items">
                         <a href="#home" class="navbar-link hover-underline active">
                             <div class="separator"></div>
-
+    
                             <span class="span">Home</span>
                         </a>
                     </li>
-
+    
                     <li class="navbar-items">
                         <a href="#tracks" class="navbar-link hover-underline">
                             <div class="separator"></div>
-
+    
                             <span class="span">Tracks</span>
                         </a>
                     </li>
-
+    
                     <li class="navbar-items">
                         <a href="#about" class="navbar-link hover-underline">
                             <div class="separator"></div>
-
+    
                             <span class="span"> About Us </span>
                         </a>
                     </li>
-
+    
                     <li class="navbar-items">
                         <a href="#speackers" class="navbar-link hover-underline">
                             <div class="separator"></div>
-
+    
                             <span class="span"> Speackers </span>
                         </a>
                     </li>
-
+    
                     <li class="navbar-items">
                         <a href="#contact" class="navbar-link hover-underline">
                             <div class="separator"></div>
-
+    
                             <span class="span"> Contact Us </span>
                         </a>
                     </li>
                 </ul>
-
+    
                 <div class="text-center">
                     <p class="headline-1 navbar-title">Visit Us</p>
-
+    
                     <adress class="body-4">
                         Flliper International School , <br />
                         Addis Ababa
                     </adress>
-
+    
                     <p class="body-4 navbar-text">Friday-Club : 2.30 - 3.30 pm</p>
-
+    
                     <a href="mailto:ttfalewi@gmail.com" class="body-4 sidebar-link">ttfalewi@gmail.com</a>
                     <div class="separator"></div>
-
+    
                     <p class="contact-lable">Join Our Club</p>
-
+    
                     <a href="tel:+251937116914" class="body-1 contact-number hover-underline">
                         +251937116914
                     </a>
                 </div>
             </nav>
-
+    
             <a href="#" class="btn btn-secondary">
                 <span class="text text-1"> Secure Your Spot ! </span>
-
+    
                 <span class="text text-2" aria-hidden="true">
                     Secure Your Spot !
                 </span>
             </a>
-
+    
+            <div class="user-icon" id="userIcon" tabindex="0" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-user header-user-icon"></i>
+                <div class="notification-dot" id="notificationDot"></div> <!-- Add this div -->
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="profile.html" class="dropdown-item">Profile</a>
+                    <a id="inboxLink" class="dropdown-item">Inbox</a>
+                    <a id="groupChat" class="dropdown-item inboxLink">Group Chat</a>
+                    <a href="Login and signup/index.html" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+    
             <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
                 <span class="line line-1"></span>
                 <span class="line line-2"></span>
                 <span class="line line-3"></span>
             </button>
-
+    
             <div class="overlay" data-nav-toggler data-overlay></div>
         </div>
     </header>
@@ -222,11 +233,7 @@
         <div class="members-section">
             <h2>Members</h2>
             <ul class="members-list">
-                <li class="member-item">Alice Smith <span class="member-role">(Admin)</span></li>
-                <li class="member-item">Bob Johnson <span class="member-role">(Member)</span></li>
-                <li class="member-item">Carol Williams <span class="member-role">(Member)</span></li>
-                <li class="member-item">David Brown <span class="member-role">(Moderator)</span></li>
-                <li class="member-item">Eve Davis <span class="member-role">(Member)</span></li>
+                <li class="member-item"><span class="member-role"></span></li>
             </ul>
         </div>
 
@@ -237,7 +244,6 @@
 
 
     <script type="module" src="assets/js/profile.js"></script>
-    <script src="assets/js/script.js"></script>
 </body>
 
 </html>

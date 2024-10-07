@@ -109,7 +109,6 @@ function fetchMembers() {
                 if (memberCountElement) {
                     memberCountElement.textContent = `${memberCount} Members`; // Update the count display
                 } else {
-                    console.error("Member count element not found");
                 }
 
                 // Display first five members
@@ -129,7 +128,7 @@ function fetchMembers() {
                     memberContainer.appendChild(memberElement); // Append member element to the container
                 });
             } else {
-                console.error("No members data available");
+
             }
         })
         .catch((error) => {
@@ -191,13 +190,20 @@ userIcon.addEventListener('click', () => {
 });
 
 const storedUsername = localStorage.getItem("username");
+let AdminOrmember;
+    if (username === "Arafat_Mohammed") {
+        AdminOrmember = "Admin"
+    }
+    else {
+        AdminOrmember = "member"
+    };
 
 document.getElementById("groupChat").addEventListener('click', () => {
     fetchUserData(storedUsername).then(userData => {
         if (userData) {
             const securityCode = userData.securityCode; // Get security code from user data
             // Construct the inbox link with the security code at the end
-            window.location.href = `GroupChat.html?user=${storedUsername}`;
+            window.location.href = `GroupChat.html?user=${storedUsername}(${AdminOrmember})`;
         }
     });
 });

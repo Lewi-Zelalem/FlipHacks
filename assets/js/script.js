@@ -2,18 +2,21 @@
 
 /*
  * PRELOAD
- */
+
 const preloader = document.querySelector("[data-preload]");
 window.addEventListener("load", function () {
   preloader.classList.add("loaded");
   document.body.classList.add("loaded");
 });
 
-const addEventOnElements = function (elements, eventType, callback) {
+const addEventOnElements = (elements, eventType, callback) => {
   for (let i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener(eventType, callback);
   }
 };
+ */
+
+
 
 /*
  * NAVBAR
@@ -29,7 +32,7 @@ const toggleNavbar = function () {
   document.body.classList.toggle("nav-active");
 };
 
-addEventOnElements(navTogglers, "click", toggleNavbar);
+/*addEventOnElements(navTogglers, "click", toggleNavbar);*/
 
 /*
  * HEADER
@@ -93,7 +96,7 @@ const slideprev = function () {
 };
 /**
  * auto slide
- */
+
 let autoSlideInterval;
 const autoSlide = function () {
   autoSlideInterval = setInterval(function () {
@@ -113,3 +116,4 @@ addEventOnElements(
   autoSlide
 );
 window.addEventListener("load", autoSlide);
+ */
