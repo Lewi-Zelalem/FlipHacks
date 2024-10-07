@@ -1,22 +1,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  child
+    getDatabase,
+    ref,
+    set,
+    get,
+    child
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
 // Firebase configuration (replace with your actual config)
 const firebaseConfig = {
-  apiKey: "AIzaSyCVIym8X-GDRx6_1256dtVZdo3hIm7TRgI",
-  authDomain: "flipper-hack.firebaseapp.com",
-  databaseURL: "https://flipper-hack-default-rtdb.firebaseio.com",
-  projectId: "flipper-hack",
-  storageBucket: "flipper-hack.appspot.com",
-  messagingSenderId: "9118741906",
-  appId: "1:9118741906:web:d8860d3094a46bafd37d4b",
-  measurementId: "G-EYLLFHW5XS",
+    apiKey: "AIzaSyCVIym8X-GDRx6_1256dtVZdo3hIm7TRgI",
+    authDomain: "flipper-hack.firebaseapp.com",
+    databaseURL: "https://flipper-hack-default-rtdb.firebaseio.com",
+    projectId: "flipper-hack",
+    storageBucket: "flipper-hack.appspot.com",
+    messagingSenderId: "9118741906",
+    appId: "1:9118741906:web:d8860d3094a46bafd37d4b",
+    measurementId: "G-EYLLFHW5XS",
 };
 
 // Initialize Firebase
@@ -33,7 +33,7 @@ function fetchUserData(username) {
     get(child(databaseRef, `users/${username}`)) // Assuming your users are stored under "users"
         .then((snapshot) => {
             if (snapshot.exists()) {
-                 userData = snapshot.val();
+                userData = snapshot.val();
                 updateUserInfo(userData);
             } else {
                 console.error("No data available");
@@ -42,9 +42,9 @@ function fetchUserData(username) {
         .catch((error) => {
             console.error("Error fetching user data: ", error);
         });
-    
-      const userRef = ref(database, `users/${username}`);
-    
+
+    const userRef = ref(database, `users/${username}`);
+
     return get(userRef).then((snapshot) => {
         if (snapshot.exists()) {
             return snapshot.val(); // Returns the user data
@@ -164,7 +164,7 @@ document.querySelector('.user .fa-eye')
 /*
 *user account ddrop down
 */
-    const userIcon = document.getElementById('userIcon');
+const userIcon = document.getElementById('userIcon');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
 // Show dropdown on hover
@@ -211,3 +211,5 @@ document.getElementById("inboxLink").addEventListener('click', () => {
         }
     });
 });
+
+document.querySelector(`.profile-link`)
