@@ -17,7 +17,7 @@ html {
     background-color: hsla(210, 4%, 9%, 1);
     border-right: 1px solid #ddd;
     overflow-y: auto;
-    margin-top: 150px;
+    margin-top: 100px;
 }
 
 .user-list .user {
@@ -38,7 +38,7 @@ html {
     justify-content: space-between;
     background-color: hsla(210, 4%, 9%, 1);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .messages {
@@ -78,6 +78,7 @@ html {
     padding: 15px;
     border-top: 1px solid #ddd;
     background: hsla(210, 4%, 9%, 1);
+    margin-bottom: 70px;
 }
 
 .input-container input {
@@ -167,6 +168,7 @@ h2 {
 }
 .chat-with{
     color: white;
+    position: fixed;
 }
 /* styles.css */
 
