@@ -67,18 +67,23 @@ function displayMembersData(membersData) {
         const memberData = membersData[username];
         const listItem = document.createElement("li");
         listItem.classList.add("member-item");
-
         listItem.textContent = `${memberData.firstName} ${memberData.lastName}`;
 
         // Check if the user is an admin
-        if (username === "Arafat_Mohammed" || username === "Lewi123") {
-            listItem.innerHTML += ' <span class="member-role">(Admin)</span>';
-        } else if (memberData.role === "moderator") {
-            listItem.innerHTML += ' <span class="member-role">(Moderator)</span>';
-        } else {
-            listItem.innerHTML += ' <span class="member-role">(Member)</span>';
-        }
+        listItem.innerHTML += ` <span class="member-role">(${memberData.role})</span>`;
 
+        fetchUserData(storedUsername).then(userData => {
+            if (userData) {
+                // Do something with the user data
+                console.log("User Data: ", userData);
+                document.getElementById("firstnameNlastname")
+                    .innerHTML = `${userData.firstName} ${userData.lastName}`;
+                document.getElementById("userName")
+                    .innerHTML = userData.username;
+                document.getElementById("security-code")
+                    .innerHTML = userData.securityCode;
+            }
+        });
         membersList.appendChild(listItem);
     }
 }
@@ -99,6 +104,18 @@ window.onload = () => {
         }
     });
 
+    fetchUserData(storedUsername).then(userData => {
+        if (userData) {
+            // Do something with the user data
+            console.log("User Data: ", userData);
+            document.getElementById("firstnameNlastname")
+                .innerHTML = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById("userName")
+                .innerHTML = userData.username;
+            document.getElementById("security-code")
+                .innerHTML = userData.securityCode;
+        }
+    });
     // Fetch all members data and display it on page load
     fetchAllMembersData().then(membersData => {
         if (membersData) {
@@ -108,31 +125,31 @@ window.onload = () => {
 };
 
 
-  /*
-    *user account ddrop down
-    */
-    const userIcon = document.getElementById('userIcon');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+/*
+  *user account ddrop down
+  */
+const userIcon = document.getElementById('userIcon');
+const dropdownMenu = document.getElementById('dropdownMenu');
 
-    // Show dropdown on hover
-    userIcon.addEventListener('mouseenter', () => {
-      dropdownMenu.style.display = 'block';
-    });
+// Show dropdown on hover
+userIcon.addEventListener('mouseenter', () => {
+    dropdownMenu.style.display = 'block';
+});
 
-    userIcon.addEventListener('mouseleave', () => {
-      dropdownMenu.style.display = 'none';
-    });
+userIcon.addEventListener('mouseleave', () => {
+    dropdownMenu.style.display = 'none';
+});
 
-    // Optional: Close the dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-      if (!userIcon.contains(event.target)) {
+// Optional: Close the dropdown when clicking outside
+document.addEventListener('click', (event) => {
+    if (!userIcon.contains(event.target)) {
         dropdownMenu.style.display = 'none';
-      }
-    });
+    }
+});
 
-    // Optional: Toggle dropdown on click
-    userIcon.addEventListener('click', () => {
-      const isExpanded = userIcon.getAttribute('aria-expanded') === 'true';
-      userIcon.setAttribute('aria-expanded', !isExpanded);
-      dropdownMenu.style.display = isExpanded ? 'none' : 'block';
-    });
+// Optional: Toggle dropdown on click
+userIcon.addEventListener('click', () => {
+    const isExpanded = userIcon.getAttribute('aria-expanded') === 'true';
+    userIcon.setAttribute('aria-expanded', !isExpanded);
+    dropdownMenu.style.display = isExpanded ? 'none' : 'block';
+});
