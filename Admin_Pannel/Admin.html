@@ -155,7 +155,7 @@
         const securityCode = document
           .getElementById("security-code-input")
           .value.trim();
-        if (securityCode.length === 5) {
+        if (securityCode.length === 2) {
           // Assuming the security code is 5 digits
           loadUsers(securityCode);
         } else {
@@ -293,22 +293,22 @@
     }
 
     const roleInputs = document.getElementsByClassName("role-input");
-      Array.from(roleInputs).forEach((input) => {
-        input.addEventListener("change", function () {
-          const newRole = this.value;
-          const username = this.getAttribute("data-username");
+    Array.from(roleInputs).forEach((input) => {
+      input.addEventListener("change", function () {
+        const newRole = this.value;
+        const username = this.getAttribute("data-username");
 
-          // Update the user's role in the database
-          const userRef = ref(database, `users/${username}`);
-          update(userRef, { role: newRole })
-            .then(() => {
-              console.log(`Role updated for ${username} to ${newRole}`);
-            })
-            .catch((error) => {
-              console.error("Error updating role: ", error);
-            });
-        });
+        // Update the user's role in the database
+        const userRef = ref(database, `users/${username}`);
+        update(userRef, { role: newRole })
+          .then(() => {
+            console.log(`Role updated for ${username} to ${newRole}`);
+          })
+          .catch((error) => {
+            console.error("Error updating role: ", error);
+          });
       });
+    });
   </script>
 </body>
 
