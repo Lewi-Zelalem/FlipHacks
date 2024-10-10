@@ -253,6 +253,10 @@ body {
   z-index: 1;
 }
 
+.container.active .social-icons {
+  display: none;
+}
+
 .container.active .sign-up {
   transform: translateX(100%);
   opacity: 1;
@@ -414,7 +418,7 @@ form button {
 
 @media screen and (min-width: 850px) {
   .container {
-    height: 480px;
+    height: 540px;
   }
 }
 @media screen and (max-width: 850px) {
