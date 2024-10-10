@@ -164,3 +164,27 @@ var pass = document.getElementById("signup-password");
 var msg = document.querySelector(".passwordMssg");
 var str = document.getElementById("strenght");
 const signUpBtn = document.querySelector(".sign-in-btn");
+
+pass.addEventListener("input", () => {
+  if (pass.value.length > 0) {
+    msg.style.display = "block";
+  } else {
+    msg.style.display = "block";
+  }
+  if (pass.value.length < 5) {
+    str.innerHTML = "Weak";
+    pass.style.borderColor = "#ff5925";
+    str.style.color = "#ff5925";
+    signUpBtn.style.display = "block";
+  } else if (pass.value.length >= 5 && pass.value.length < 8) {
+    str.innerHTML = "Medium";
+    pass.style.borderColor = "orange";
+    str.style.color = "orange";
+    signUpBtn.style.display = "block";
+  } else {
+    str.innerHTML = "Strong";
+    pass.style.borderColor = "#26d730";
+    str.style.color = "#26d730";
+    signUpBtn.style.display = "block";
+  }
+});
