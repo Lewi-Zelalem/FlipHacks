@@ -121,7 +121,6 @@ document
       .then((snapshot) => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
-          console.log("Retrieved user data:", userData); // Debug log
 
           // Check if the entered password matches the stored password
           // Remember to implement hashing for security

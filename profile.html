@@ -33,6 +33,7 @@
     -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="assets/css/dropdownMenu.css">
 
     <!--
     - preload
@@ -186,12 +187,11 @@
 
             <div class="user-icon" id="userIcon" tabindex="0" aria-haspopup="true" aria-expanded="false">
                 <i class="fa-solid fa-user header-user-icon"></i>
-                <div class="notification-dot" id="notificationDot"></div> <!-- Add this div -->
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="profile.html" class="dropdown-item">Profile</a>
-                    <a id="inboxLink" class="dropdown-item">Inbox</a>
-                    <a id="groupChat" class="dropdown-item inboxLink">Group Chat</a>
-                    <a href="Login and signup/index.html" class="dropdown-item">Logout</a>
+                    <a id="inboxLink" class="dropdown-item">inbox</a>
+                    <a id="groupChat" class="dropdown-item inboxLink">Group Chat</a> <a
+                        href="Login and signup/index.html" class="dropdown-item">Logout</a>
                 </div>
             </div>
 
@@ -243,7 +243,8 @@
     </div>
 
 
-    <script type="module" src="assets/js/profile.js"></script>
+    <script type="module" src="assets/js/profile.js" defer></script>
+    <script type="module" src="assets/js/dropdownMenu.js"></script>
 </body>
 
 </html>
