@@ -470,6 +470,7 @@ choose team
     cursor: pointer;
     width: 15%;
     display: none;
+    font-weight: bold;
 }
 
 .team-database {
