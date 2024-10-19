@@ -459,6 +459,10 @@ choose team
     display: none;
 }
 
+.choose-team #options option {
+    background-color: #0088cc;
+}
+
 .submit-btn {
     margin-top: 20px;
     margin-left: 5%;
