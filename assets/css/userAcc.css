@@ -334,7 +334,7 @@
 -teams
 */
 .team {
-    display: grid;
+    display: none;
     grid-template-columns: 28% 28% 28%;
     column-gap: 5%;
     margin-top: 10px;
@@ -439,7 +439,7 @@ choose team
     width: 60%;
     margin-top: 30px;
     color: var(--dark-mint);
-    margin-left: 5%;
+    display: none;
 }
 
 
@@ -456,7 +456,7 @@ choose team
     border-width: 1px;
     background-color: rgba(35, 36, 36, 0.5);
     margin-left: 5%;
-    display: inline-block;
+    display: none;
 }
 
 .submit-btn {
@@ -469,7 +469,7 @@ choose team
     border-radius: 5px;
     cursor: pointer;
     width: 15%;
-    display: inline-block;
+    display: none;
 }
 
 .team-database {
@@ -498,6 +498,10 @@ choose team
 
 .team-choosed {
     display: none;
+}
+
+.team-choosed h2 {
+    margin-left: 5%;
 }
 
 @media (max-width: 1138px) {

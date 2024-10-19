@@ -195,25 +195,93 @@ document.querySelector('.submit-btn').addEventListener('click', () => {
     submitData();
 });
 
-function submitData() {
-    // Get the selected team from the dropdown
-    const selectedTeam = document.getElementById("options").value;
-    // Create a reference to the user's section under the selected team in the database
-    const userRef = ref(database, `/${selectedTeam}/${username}`); // Save user data under the selected team and their username
 
-    // Save the selected team to the database
-    set(userRef, {
-        firstName: userData.firstName,  // Store additional user data if needed
-        lastName: userData.lastName,
-        securityCode: userData.securityCode,
-        selectedTeam: selectedTeam // Store the selected team value
-    })
-        .then(() => {
-            alert("Team selection saved successfully!");
-            // Optionally, you can update the UI or perform additional actions
+
+
+
+
+
+
+
+// Function to check if the user has already submitted their team
+function checkUserSubmission() {
+    const selectedTeam = document.getElementById("options").value; // Get the current value of the dropdown
+
+    // Reference to the user's section under the selected team in the database
+    const userRef = ref(database, `/${selectedTeam}/${username}`);
+
+    // Check if the user already exists in the selected team
+    get(userRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // User has already submitted their team, hide the dropdown and button
+                document.getElementById("options").style.display = "none"; // Hide dropdown
+                document.querySelector('.submit-btn').style.display = "none"; // Hide submit button
+                document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message 
+                document.querySelector('.team-database').innerHTML = snapshot.val().selectedTeam; // Show the team choosed message
+            } else {
+                // User has not submitted, show the dropdown and button
+                document.getElementById("options").style.display = "block"; // Show dropdown
+                document.querySelector('.submit-btn').style.display = "block"; // Show submit button
+                document.querySelector('.choose-team h1').style.display = "block"; // Show the choose team message
+                document.querySelector('.team').style.display = "grid"; // Hide the team selection message
+            }
         })
         .catch((error) => {
-            console.error("Error saving team selection: ", error);
-            alert("There was an error saving your selection.");
+            console.error("Error checking user submission: ", error);
         });
 }
+
+// Function to handle submission of team data
+function submitData() {
+    const selectedTeam = document.getElementById("options").value;
+    const userRef = ref(database, `/${selectedTeam}/${username}`);
+
+    // Check if the user has already submitted their team
+    get(userRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // User already exists in the team, do not allow multiple submissions
+                document.getElementById("options").style.display = "none"; // Hide the dropdown
+                document.querySelector('.submit-btn').style.display = "none"; // Hide the button
+                document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
+            } else {
+                // User doesn't exist in the selected team, proceed to save their data
+                set(userRef, {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    securityCode: userData.securityCode,
+                    selectedTeam: selectedTeam
+                })
+                    .then(() => {
+                        document.getElementById("options").style.display = "none"; // Hide dropdown after submission
+                        document.querySelector('.submit-btn').style.display = "none"; // Hide the button after submission
+                        document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                        document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
+                    })
+                    .catch((error) => {
+                        console.error("Error saving team selection: ", error);
+                        alert("There was an error saving your selection.");
+                    });
+            }
+        })
+        .catch((error) => {
+            console.error("Error checking if user exists: ", error);
+            alert("There was an error checking your previous submission.");
+        });
+}
+
+// Call checkUserSubmission on page load
+window.onload = () => {
+    fetchMembers();
+    fetchUserData(username);
+    countMembers();
+    checkUserSubmission(); // Check if the user has already submitted their team
+};
+
+// Event listener for the submit button
+document.querySelector('.submit-btn').addEventListener('click', () => {
+    submitData();
+});
