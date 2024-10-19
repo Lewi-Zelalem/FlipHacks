@@ -216,24 +216,6 @@
                     <h3 class="code security-code">*****<i class="fa-solid fa-eye"></i></h3>
                     <span></span>
             </div>
-            <!--
-            -member-info
-            --><!--
-            <div class="hack-members">
-                <h1><span class="memebers-count"></span> Members</h1>
-                <div class="member">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <h3>Arafat Mohammed</h3>
-                </div>
-                <div class="member">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <h3>Lewi zelalem</h3>
-                </div>
-                <div class="member-">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <h3>Noel Fassil</h3>
-                </div>
-            </div>-->
 
         </div>
 
@@ -261,6 +243,19 @@
             <!--
             -team
             -->
+
+            <div class="choose-team">
+                <h1>Choose Your Team</h1>
+                <div class="drop-down-team">
+                    <select id="options" name="options">
+                        <option value="developers">Web Developers Team</option>
+                        <option value="Innovation">Innovation and Research Team</option>
+                        <option value="marketing">Marketing and Promotion Team</option>
+                    </select>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="submitData()">Submit</button>
+            </div>
             <div class="team">
 
                 <div class="developer-team">
@@ -281,7 +276,11 @@
                         </p>
                 </div>
             </div>
+            <div class="team-choosed">
+                <h2>Team Choosed: <span class="team-database">Web Developers Team</span></h1>
+                    <button class="join-us">Telegram <i class="fa-brands fa-telegram"></i></button>
 
+            </div>
         </div>
     </div>
 

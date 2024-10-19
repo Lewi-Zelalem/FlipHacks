@@ -190,3 +190,30 @@ document.getElementById("inboxLink").addEventListener('click', () => {
 });
 
 document.querySelector(`.profile-link`)
+
+document.querySelector('.submit-btn').addEventListener('click', () => {
+    submitData();
+});
+
+function submitData() {
+    // Get the selected team from the dropdown
+    const selectedTeam = document.getElementById("options").value;
+    // Create a reference to the user's section under the selected team in the database
+    const userRef = ref(database, `/${selectedTeam}/${username}`); // Save user data under the selected team and their username
+
+    // Save the selected team to the database
+    set(userRef, {
+        firstName: userData.firstName,  // Store additional user data if needed
+        lastName: userData.lastName,
+        securityCode: userData.securityCode,
+        selectedTeam: selectedTeam // Store the selected team value
+    })
+        .then(() => {
+            alert("Team selection saved successfully!");
+            // Optionally, you can update the UI or perform additional actions
+        })
+        .catch((error) => {
+            console.error("Error saving team selection: ", error);
+            alert("There was an error saving your selection.");
+        });
+}
