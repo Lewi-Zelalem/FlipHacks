@@ -202,13 +202,13 @@ document.querySelector('.submit-btn').addEventListener('click', () => {
 
 
 
-
 // Function to check if the user has already submitted their team
 function checkUserSubmission() {
     const selectedTeam = document.getElementById("options").value; // Get the current value of the dropdown
+    const savedValue = localStorage.getItem("selectedTeam");
 
     // Reference to the user's section under the selected team in the database
-    const userRef = ref(database, `/${selectedTeam}/${username}`);
+    const userRef = ref(database, `/${savedValue}/${username}`);
 
     // Check if the user already exists in the selected team
     get(userRef)
@@ -237,6 +237,7 @@ function checkUserSubmission() {
 function submitData() {
     const selectedTeam = document.getElementById("options").value;
     const userRef = ref(database, `/${selectedTeam}/${username}`);
+    localStorage.setItem("selectedTeam", selectedTeam);
 
     // Check if the user has already submitted their team
     get(userRef)
@@ -246,6 +247,7 @@ function submitData() {
                 document.getElementById("options").style.display = "none"; // Hide the dropdown
                 document.querySelector('.submit-btn').style.display = "none"; // Hide the button
                 document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                document.querySelector('.choose-team h1').style.display = "none"; // Hide the team selection message
                 document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
             } else {
                 // User doesn't exist in the selected team, proceed to save their data
@@ -259,6 +261,8 @@ function submitData() {
                         document.getElementById("options").style.display = "none"; // Hide dropdown after submission
                         document.querySelector('.submit-btn').style.display = "none"; // Hide the button after submission
                         document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                        document.querySelector('.choose-team h1').style.display = "none"; // Hide the team selection message
+                        document.querySelector('.team-database').innerHTML = selectedTeam; // Show the team choosed message
                         document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
                     })
                     .catch((error) => {
