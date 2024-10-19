@@ -91,6 +91,10 @@
             padding: 5px;
 
         }
+
+        .span {
+            font-weight: 100;
+        }
     </style>
     <!-- Add Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
@@ -98,10 +102,10 @@
 </head>
 
 <body>
+
     <h2>Team Members</h2>
     <div class="members">
-        <div class="developers-list">
-        </div> <!-- Container for displaying developers -->
+        <div class="developers-list"></div> <!-- Container for displaying developers -->
         <div class="innovation-list"></div>
         <div class="promotion-list"></div>
     </div>
@@ -149,9 +153,10 @@
                             developerElement.classList.add('member');
 
                             developerElement.innerHTML += `
-                        <h3>${developer.firstName}</h3>
-                        <p>Team Chosen: ${developer.selectedTeam}</p>
-                    `;
+                        <div>
+                        <h3>${developer.firstName}: <span class="span"> ${developer.selectedTeam}</span></h3>
+                        </div>
+                        `;
 
                             developersList.appendChild(developerElement); // Append developer element to the list
                         }
@@ -181,9 +186,10 @@
                             developerElement.classList.add('member');
 
                             developerElement.innerHTML = `
-                        <h3>${developer.firstName}</h3>
-                        <p>Team Chosen: ${developer.selectedTeam}</p>
-                    `;
+                        <div>
+                        <h3>${developer.firstName}: <span class="span"> ${developer.selectedTeam}</span></h3>
+                        </div>
+                        `;
 
                             InnovationList.appendChild(developerElement); // Append developer element to the list
                         }
@@ -213,9 +219,10 @@
                             developerElement.classList.add('member');
 
                             developerElement.innerHTML = `
-                        <h3>${developer.firstName}</h3>
-                        <p>Team Chosen: ${developer.selectedTeam}</p>
-                    `;
+                        <div class="$"">
+                        <h3>${developer.firstName}: <span class="span"> ${developer.selectedTeam}</span></h3>
+                        </div>
+                        `;
 
                             promotionList.appendChild(developerElement); // Append developer element to the list
                         }
@@ -234,6 +241,7 @@
             fetchInovation();
             fetchPromotion();
         };
+
 
     </script>
 
