@@ -1,7 +1,7 @@
 "use strict";
 
-/*
- * PRELOAD
+
+
 
 const preloader = document.querySelector("[data-preload]");
 window.addEventListener("load", function () {
@@ -14,7 +14,7 @@ const addEventOnElements = (elements, eventType, callback) => {
     elements[i].addEventListener(eventType, callback);
   }
 };
- */
+
 
 
 

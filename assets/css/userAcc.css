@@ -140,6 +140,7 @@
   border-radius: 20px;
   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.5);
 }
+
 /*
 -account
 */
@@ -157,6 +158,7 @@
   text-align: center;
   margin-top: 5px;
 }
+
 .members .user-detail h3 {
   font-size: 25px;
   width: 100%;
@@ -171,6 +173,7 @@
   margin-left: 5px;
   cursor: pointer;
 }
+
 .members .user-detail h4 {
   font-size: 15px;
   width: 100%;
@@ -178,6 +181,7 @@
   margin-top: 2px;
   font-weight: 100;
 }
+
 .members .user-detail span {
   background-color: white;
   color: white;
@@ -230,6 +234,7 @@
   margin-top: 25px;
   font-size: 25px;
 }
+
 .user .fa-eye {
   display: inline-block;
   margin-left: 5px;
@@ -246,6 +251,7 @@
 .Security-key span {
   display: inline-block;
 }
+
 /*
 -register and desc
 */
@@ -366,16 +372,19 @@
   text-align: center;
   margin-top: 15px;
 }
+
 .innovation-and-research-team h3 {
   width: 100%;
   text-align: center;
   margin-top: 15px;
 }
+
 .promotion-and-marketing-team h3 {
   width: 100%;
   text-align: center;
   margin-top: 15px;
 }
+
 .developer-team p {
   padding: 5px;
   text-align: justify;
@@ -392,6 +401,7 @@
   color: rgb(241, 241, 241);
   margin-top: 15px;
 }
+
 .promotion-and-marketing-team p {
   padding: 5px;
   text-align: start;
@@ -449,6 +459,7 @@
 .header-user-icon {
   font-size: 25px;
 }
+
 @media (max-width: 1138px) {
   .container {
     grid-template-columns: 1fr;
@@ -463,6 +474,7 @@
     height: 700px;
   }
 }
+
 @media (max-width: 803px) {
   .team {
     display: flex;

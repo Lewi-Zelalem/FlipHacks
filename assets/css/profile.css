@@ -114,6 +114,7 @@
   --transition-2: 500ms ease;
   --transition-3: 1000ms ease;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -229,6 +230,7 @@ body {
 .profile-details strong {
   color: var(--dark-mint);
 }
+
 /*
 *members
 */

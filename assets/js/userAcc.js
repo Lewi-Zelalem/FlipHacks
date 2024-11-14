@@ -83,7 +83,6 @@ function countMembers() {
                     memberCount++; // Increase the count for each member
                 }
 
-                console.log(memberCount);
                 document.querySelector(".hack-members h1 .memebers-count")
                     .innerText = `${memberCount}`;
             } else {
@@ -160,43 +159,15 @@ document.querySelector('.user .fa-eye')
     });
 
 
-/*
-*user account ddrop down
-*/
-const userIcon = document.getElementById('userIcon');
-const dropdownMenu = document.getElementById('dropdownMenu');
-
-// Show dropdown on hover
-userIcon.addEventListener('mouseenter', () => {
-    dropdownMenu.style.display = 'block';
-});
-
-userIcon.addEventListener('mouseleave', () => {
-    dropdownMenu.style.display = 'none';
-});
-
-// Optional: Close the dropdown when clicking outside
-document.addEventListener('click', (event) => {
-    if (!userIcon.contains(event.target)) {
-        dropdownMenu.style.display = 'none';
-    }
-});
-
-// Optional: Toggle dropdown on click
-userIcon.addEventListener('click', () => {
-    const isExpanded = userIcon.getAttribute('aria-expanded') === 'true';
-    userIcon.setAttribute('aria-expanded', !isExpanded);
-    dropdownMenu.style.display = isExpanded ? 'none' : 'block';
-});
 
 const storedUsername = localStorage.getItem("username");
 let AdminOrmember;
-    if (username === "Arafat_Mohammed") {
-        AdminOrmember = "Admin"
-    }
-    else {
-        AdminOrmember = "member"
-    };
+if (username === "Arafat_Mohammed") {
+    AdminOrmember = "Admin"
+}
+else {
+    AdminOrmember = "member"
+};
 
 document.getElementById("groupChat").addEventListener('click', () => {
     fetchUserData(storedUsername).then(userData => {
@@ -219,3 +190,116 @@ document.getElementById("inboxLink").addEventListener('click', () => {
 });
 
 document.querySelector(`.profile-link`)
+
+document.querySelector('.submit-btn').addEventListener('click', () => {
+    submitData();
+});
+
+
+
+
+
+
+
+
+// Function to check if the user has already submitted their team
+function checkUserSubmission() {
+    const selectedTeam = document.getElementById("options").value; // Get the current value of the dropdown
+    const savedValue = localStorage.getItem("selectedTeam");
+
+    // Reference to the user's section under the selected team in the database
+    const userRef = ref(database, `/${savedValue}/${username}`);
+
+    // Check if the user already exists in the selected team
+    get(userRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // User has already submitted their team, hide the dropdown and button
+                document.getElementById("options").style.display = "none"; // Hide dropdown
+                document.querySelector('.submit-btn').style.display = "none"; // Hide submit button
+                document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message 
+                document.querySelector('.team-database').innerHTML = snapshot.val().selectedTeam; // Show the team choosed message
+            } else {
+                // User has not submitted, show the dropdown and button
+                document.getElementById("options").style.display = "block"; // Show dropdown
+                document.querySelector('.submit-btn').style.display = "block"; // Show submit button
+                document.querySelector('.choose-team h1').style.display = "block"; // Show the choose team message
+                document.querySelector('.team').style.display = "grid"; // Hide the team selection message
+            }
+        })
+        .catch((error) => {
+            console.error("Error checking user submission: ", error);
+        });
+}
+
+// Function to handle submission of team data
+function submitData() {
+    const selectedTeam = document.getElementById("options").value;
+    const userRef = ref(database, `/${selectedTeam}/${username}`);
+    localStorage.setItem("selectedTeam", selectedTeam);
+
+    // Check if the user has already submitted their team
+    get(userRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // User already exists in the team, do not allow multiple submissions
+                document.getElementById("options").style.display = "none"; // Hide the dropdown
+                document.querySelector('.submit-btn').style.display = "none"; // Hide the button
+                document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                document.querySelector('.choose-team h1').style.display = "none"; // Hide the team selection message
+                document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
+            } else {
+                // User doesn't exist in the selected team, proceed to save their data
+                set(userRef, {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    securityCode: userData.securityCode,
+                    selectedTeam: selectedTeam
+                })
+                    .then(() => {
+                        document.getElementById("options").style.display = "none"; // Hide dropdown after submission
+                        document.querySelector('.submit-btn').style.display = "none"; // Hide the button after submission
+                        document.querySelector('.team').style.display = "none"; // Hide the team selection message
+                        document.querySelector('.choose-team h1').style.display = "none"; // Hide the team selection message
+                        document.querySelector('.team-database').innerHTML = selectedTeam; // Show the team choosed message
+                        document.querySelector('.team-choosed').style.display = "block"; // Show the team choosed message   
+                    })
+                    .catch((error) => {
+                        console.error("Error saving team selection: ", error);
+                        alert("There was an error saving your selection.");
+                    });
+            }
+        })
+        .catch((error) => {
+            console.error("Error checking if user exists: ", error);
+            alert("There was an error checking your previous submission.");
+        });
+}
+
+// Call checkUserSubmission on page load
+window.onload = () => {
+    fetchMembers();
+    fetchUserData(username);
+    countMembers();
+    checkUserSubmission(); // Check if the user has already submitted their team
+};
+
+
+// Check if the role in the database is Admin and log "hi" if true
+fetchUserData(username).then(userData => {
+    if (userData && userData.role === "Paid" || userData.role === "Admin") {
+        document.querySelector('.pending').innerHTML = "Paid";
+        document.querySelector('.pending').style.color = "hsl(163, 88%, 50%)";
+    }
+    else {
+        document.querySelector('.pending').innerHTML = "pending";
+        document.querySelector('.pending').style.color = "red";
+    }
+});
+
+
+// Event listener for the submit button
+document.querySelector('.submit-btn').addEventListener('click', () => {
+    submitData();
+});

@@ -75,7 +75,6 @@ function displayMembersData(membersData) {
         fetchUserData(storedUsername).then(userData => {
             if (userData) {
                 // Do something with the user data
-                console.log("User Data: ", userData);
                 document.getElementById("firstnameNlastname")
                     .innerHTML = `${userData.firstName} ${userData.lastName}`;
                 document.getElementById("userName")
@@ -94,7 +93,6 @@ window.onload = () => {
     fetchUserData(storedUsername).then(userData => {
         if (userData) {
             // Do something with the user data
-            console.log("User Data: ", userData);
             document.getElementById("firstnameNlastname")
                 .innerHTML = `${userData.firstName} ${userData.lastName}`;
             document.getElementById("userName")
@@ -107,7 +105,6 @@ window.onload = () => {
     fetchUserData(storedUsername).then(userData => {
         if (userData) {
             // Do something with the user data
-            console.log("User Data: ", userData);
             document.getElementById("firstnameNlastname")
                 .innerHTML = `${userData.firstName} ${userData.lastName}`;
             document.getElementById("userName")
