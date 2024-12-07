@@ -135,7 +135,6 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
 
-    // Check if userName is Arafat_Mohammed
     const storedUserName = localStorage.getItem("username");
 
     console.log(storedUserName);
@@ -187,7 +186,7 @@
 
     // Only load users if storedUserName is Arafat_Mohammed
     document.getElementById("load-users").addEventListener("click", function () {
-      if (storedUserName === "Arafat_Mohammed") {
+      if (storedUserName === "Arafat_Mohammed" || storedUserName === "Lewi123") {
         loadUsers();
       } else {
         alert("You are not authorized to view this data.");
